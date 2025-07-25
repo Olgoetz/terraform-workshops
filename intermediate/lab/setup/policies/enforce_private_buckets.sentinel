@@ -1,0 +1,22 @@
+import "tfplan/v2" as tfplan
+
+// Sentinel filter expression used to filter out all aws_s3_bucket resources 
+// that will change once the Terraform plan has been applied.
+aws_s3_bucket_acls = filter tfplan.resource_changes as _, resource_changes {
+    resource_changes.type is "aws_s3_bucket_acl" and
+        resource_changes.mode is "managed" and
+        (resource_changes.change.actions contains "create" or
+            resource_changes.change.actions is ["update"])
+}
+ 
+aws_s3_bucket_acls_are_private = rule {
+    all aws_s3_bucket_acls as _, aws_s3_bucket_acl {
+        aws_s3_bucket_acl.change.after.acl is "private"
+    }
+}
+
+
+// Sentinel rule to ensure that ALL S3 buckets are set to "private" ACL.   
+main = rule {
+    aws_s3_bucket_acls_are_private
+}

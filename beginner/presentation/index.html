@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <title>Terraform - Beginners</title>
+
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/black.css" />
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-external="slides/001_intro.html"></section>
+        <section data-external="slides/002_agenda.html"></section>
+        <section>
+          <h2>About HashiCorp an IBM Company</h2>
+          <p>
+            HashiCorp is a leading company in infrastructure automation, known
+            for open-source tools that enable cloud infrastructure management.
+          </p>
+          <ul style="list-style: none; padding: 0">
+            <li style="margin-bottom: 0.5em">
+              <img
+                src="https://icon.icepanel.io/Technology/svg/HashiCorp-Terraform.svg"
+                alt="Terraform"
+                style="
+                  height: 1.5em;
+                  vertical-align: middle;
+                  margin-right: 0.5em;
+                "
+              />
+              <b>Terraform</b> – Infrastructure as Code
+            </li>
+            <li style="margin-bottom: 0.5em">
+              <img
+                src="https://icon.icepanel.io/Technology/svg/HashiCorp-Vault.svg"
+                alt="Vault"
+                style="
+                  height: 1.5em;
+                  vertical-align: middle;
+                  margin-right: 0.5em;
+                "
+              />
+              <b>Vault</b> – Secrets Management
+            </li>
+            <li style="margin-bottom: 0.5em">
+              <img
+                src="https://icon.icepanel.io/Technology/svg/Consul.svg"
+                alt="Consul"
+                style="
+                  height: 1.5em;
+                  vertical-align: middle;
+                  margin-right: 0.5em;
+                "
+              />
+              <b>Consul</b> – Service Networking
+            </li>
+            <li style="margin-bottom: 0.5em">
+              <img
+                src="https://icon.icepanel.io/Technology/svg/Packer.svg"
+                alt="Packer"
+                style="
+                  height: 1.5em;
+                  vertical-align: middle;
+                  margin-right: 0.5em;
+                "
+              />
+              <b>Packer</b> – Machine Image Automation
+            </li>
+            <li style="margin-bottom: 0.5em">
+              <img
+                src="https://icon.icepanel.io/Technology/svg/HashiCorp-Vagrant.svg"
+                alt="Vagrant"
+                style="
+                  height: 1.5em;
+                  vertical-align: middle;
+                  margin-right: 0.5em;
+                "
+              />
+              <b>Vagrant</b> – Development Environments
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>About HashiCorp an IBM Company</h2>
+          <ul style="list-style: none; padding: 0">
+            <li style="margin-bottom: 0.5em">
+              <img
+                src="assets/nomad.svg"
+                alt="Nomad"
+                style="
+                  height: 1.5em;
+                  vertical-align: middle;
+                  margin-right: 0.5em;
+                "
+              /><b>Nomad</b> – Application Orchestration
+            </li>
+            <li style="margin-bottom: 0.5em">
+              <img
+                src="assets/waypoint.svg"
+                alt="Waypoint"
+                style="
+                  height: 1.5em;
+                  vertical-align: middle;
+                  margin-right: 0.5em;
+                "
+              /><b>Waypoint</b> – Application Deployment & Release
+            </li>
+            <li style="margin-bottom: 0.5em">
+              <img
+                src="assets/boundary.svg"
+                alt="Boundary"
+                style="
+                  height: 1.5em;
+                  vertical-align: middle;
+                  margin-right: 0.5em;
+                "
+              /><b>Boundary</b> – Secure Remote Access
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>What is terraform?</h2>
+          <p class="fragment fade-in">
+            <b>Terraform</b> is an open-source tool for building, changing, and
+            versioning infrastructure safely and efficiently.
+          </p>
+          <p class="fragment fade-in">
+            It allows you to manage infrastructure as code, enabling automation
+            and collaboration.
+          </p>
+          <p class="fragment fade-in">
+            Terraform supports multiple cloud providers ("cloud agnostic") and
+            services, making it a versatile tool for infrastructure management.
+          </p>
+        </section>
+        <section>
+          <h2>Basic Terraform Commands</h2>
+          <ul style="padding: 0; font-size: 30px">
+            <li class="fragment fade-in">
+              <b>terraform init</b> – Initializes a Terraform working directory
+              and downloads required providers and modules.
+            </li>
+             <li class="fragment fade-in">
+              <b>terraform fmt</b> – Formats Terraform configuration files
+              according to the standard style.
+            </li>
+             <li class="fragment fade-in">
+              <b>terraform validate</b> – Validates the configuration files.
+            </li>
+            <li class="fragment fade-in">
+              <b>terraform plan</b> – Creates an execution plan, showing what
+              actions Terraform will take to reach the desired state.
+            </li>
+            <li class="fragment fade-in">
+              <b>terraform apply</b> – Applies the planned changes to reach the
+              desired infrastructure state.
+            </li>
+            <li class="fragment fade-in">
+              <b>terraform destroy</b> – Destroys the managed infrastructure
+              created by Terraform.
+            </li>
+            <li class="fragment fade-in">
+              <b>terraform state</b> – Manages and inspects the current
+              Terraform state file.
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h2>What is a Resource?</h2>
+          <p>
+            A <b>resource</b> is a component managed by Terraform, such as a
+            server, database, or DNS record.
+          </p>
+          <pre
+            data-id="code-animation"
+          ><code class="language-python" data-trim data-line-numbers>resource "aws_instance" "example" {
+  ami           = "ami-0c55b159cbfafe1f0"
+  instance_type = "t2.micro"
+}</code></pre>
+          <p style="font-size: 20px">
+            Hint: <span style="color: yellow">aws_</span> indicatess that the
+            resource comes from the AWS provider
+          </p>
+        </section>
+        <section>
+          <h2>What is a Data Source?</h2>
+          <p>
+            A <b>data source</b> allows Terraform to fetch read-only information
+            from outside Terraform, such as existing resources.
+          </p>
+          <pre><code class="language-python" data-trim data-line-numbers>data "aws_ami" "ubuntu" {
+  most_recent = true
+  owners      = ["099720109477"]
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-*"]
+  }
+}</code></pre>
+        </section>
+        <section>
+          <h2>What is a Variable?</h2>
+          <p>
+            A <b>variable</b> lets you parameterize your Terraform configuration
+            for flexibility and reuse.
+          </p>
+          <pre><code class="language-python" data-trim data-line-numbers>variable "region" {
+  description = "The AWS region to deploy in"
+  type        = string
+  default     = "eu-central-1"
+}
+</code></pre>
+        </section>
+        <section>
+          <h2>What is a provider?</h2>
+          <p>
+            A <b>provider</b> is a plugin that allows Terraform to interact with
+            cloud providers, SaaS providers, and other APIs.
+          </p>
+          <pre><code class="language-python" data-trim data-line-numbers>provider "aws" {
+  region = "eu-central-1"
+}</code></pre>
+          <p class="fragment fade-in" style="font-size: x-large">
+            Providers are responsible for understanding API interactions and
+            exposing resources.
+          </p>
+          <p class="fragment fade-in" style="font-size: x-large">
+            Credentials are configured in the provider block or through
+            environment variables.
+          </p>
+          <p></p>
+        </section>
+        <section>
+          <h2>How does a typical folder structure look like?</h2>
+          <p>A typical Terraform project structure includes:</p>
+          <ul style="font-size: 30px; padding: 0">
+            <li>
+              <b>main.tf</b> – Contains the main configuration, resources, and
+              provider definitions.
+            </li>
+            <li>
+              <b>variables.tf</b> – Defines input variables for parameterizing
+              the configuration.
+            </li>
+            <li>
+              <b>outputs.tf</b> – Specifies output values to be displayed after
+              applying the configuration.
+            </li>
+            <li>
+              <b>versions.tf</b> - Specifies the required provider versions and
+              Terraform version.
+            </li>
+          </ul>
+          <!-- <div class="fragment fade-in">
+            <p>
+              When working within a team the structure is usally extended like
+              this:
+            </p>
+            <ul style="font-size: 30px; padding: 0">
+              <li>
+                <b>tfvars/your-env.tfvars</b> – Contains variable values for the
+                configuration of the specific environment (e.g., dev, staging,
+                prod).
+              </li>
+              <li>
+                <b>backends/your-env.your-backend-location.tfbackend</b> -
+                Contains backend configuration for storing the Terraform state
+                file in a remote location (e.g., S3, Azure Blob Storage).
+              </li>
+            </ul>
+          </div> -->
+        </section>
+        <section>
+          <img
+          src="https://icon.icepanel.io/Technology/svg/HashiCorp-Terraform.svg"
+          alt="Terraform Logo" style="height: 200px; margin: 0 auto auto;
+          background: transparent;" ">
+          <h1>Example Code</h1>
+        </section>
+        <section>
+          <h2>What is the state?</h2>
+          <ul style="font-size: 20px; padding: 0">
+            <li class="fragment fade-in">
+              The state is a snapshot of the infrastructure managed by
+              Terraform, stored in a file in json format (default:
+              terraform.tfstate).
+            </li>
+            <li class="fragment fade-in">
+              It tracks the current state of resources, allowing Terraform to
+              determine what changes need to be made during the next apply.
+            </li>
+            <li class="fragment fade-in">
+              The state file is crucial for Terraform to understand the current
+              infrastructure and manage it effectively.
+            </li>
+            <li class="fragment fade-in">
+              It can be stored locally or remotely (e.g., in an S3 bucket) for
+              collaboration and backup.
+            </li>
+            <li class="fragment fade-in">
+              The state file is automatically created and updated by Terraform
+              during the apply phase.
+            </li>
+          </ul>
+          <p class="fragment fade-in" style="color: red">
+            ATTENTION: The state may contain sensitive values as plain text! It
+            is important to protect the state file and not share it publicly.
+          </p>
+        </section>
+        <section>
+          <h2>How to manipulate the state (with CLI)?</h2>
+          <p class="fragment fade-in">
+            You can manipulate the state using the <b>terraform state</b>
+            command, which allows you to inspect, modify, and manage the state
+            file.
+          </p>
+          <p class="fragment fade-in">Common operations include:</p>
+          <ul style="font-size: 20px; padding: 0">
+            <li class="fragment fade-in">
+              <b>terraform state list</b> – Lists all resources in the state.
+            </li>
+            <li class="fragment fade-in">
+              <b>terraform state show</b> – Displays detailed information about
+              a specific resource in the state.
+            </li>
+            <li class="fragment fade-in">
+              <b>terraform state rm</b> – Removes a resource from the state file
+              without destroying it.
+            </li>
+            <li class="fragment fade-in">
+              <b>terraform state mv</b> – Moves a resource to a new address in
+              the state file.
+            </li>
+            <li class="fragment fade-in">
+              <b>terraform state pull</b> – Downloads the current state from a
+              remote backend.
+            </li>
+            <li class="fragment fade-in">
+              <b>terraform state push</b> – Uploads the current state to a
+              remote backend.
+            </li>
+          </ul>
+        </section>
+
+        
+        <section>
+          <h2>How to manipulate the state (with code)?</h2>
+          <p>
+            Apart from the usig the cli, it is also possible to use native hcl
+            code:
+          </p>
+          <pre>
+            <code class="language-python" data-trim data-line-numbers>
+  import "aws_instance" "example" {
+    # Import an existing AWS instance into the state
+    # The instance ID is required
+    id = "i-1234567890abcdef0"
+    to = "aws_instance.example"
+  }
+
+  resource "aws_instance" "example" {
+    name = "example-instance"
+    # (other resource arguments...)
+  }
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>How to manipulate the state (with code)?</h2>
+          <p>
+            Terraform provides a command to generate a skeleton of the to be imported resource. It happens on best guess and thus, must be reviewed before applying:
+          </p>
+          <pre>
+            <code class="language-bash" data-trim>
+              $ terraform plan -generate-config-out=generated.tf
+          </code></pre>
+        </section>
+
+
+        <section>
+          <h2>How to manipulate the state (with code)?</h2>
+
+          <pre>
+            <code class="language-python" data-trim data-line-numbers>
+  moved {
+    # Move a resource from one address to another
+    # This is useful when you change the resource address 
+    # in your code and want to keep the existing state
+    # The 'from' and 'to' addresses must be specified
+    from = aws_instance.a
+    to   = aws_instance.b
+ }
+
+          </code></pre>
+        </section>
+        <section>
+          <h2>How to manipulate the state (with code)?</h2>
+
+          <pre>
+            <code class="language-python" data-trim data-line-numbers>
+removed {
+  # Remove a resource from the state file 
+  # without destroying it.
+  # This is useful when you want to stop managing 
+  # a resource with Terraform but keep it in
+  # the cloud provider.
+  from = aws_instance.example
+
+  lifecycle {
+    destroy = true
+  }
+}
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>What are Ephemeral Resources?</h2>
+          <p>
+            Terraform provides two tools for resources to manage data you do not
+            want to store in state or plan files: the
+            <b style="color: violet">ephemeral resource block</b> and
+            <b style="color: violet">ephemeral write-only arguments </b> on
+            specific resources.
+          </p>
+          <p class="fragment fade-in">
+            Those resources are essentially temporary. The provider must support
+            them.
+          </p>
+        </section>
+        <section>
+          <h2>What are Ephemeral Resources?</h2>
+          <pre class="fragment fade-in">
+            <code style="font-size: 15px; line-height: 1.2rem;" class="language-python" data-trim data-line-numbers="1-3|12-13|26-27">
+ephemeral "random_password" "db_password" {
+  length           = 16
+  override_special = "!#$%&*()-_=+[]{}<>:?"
+}
+
+resource "aws_secretsmanager_secret" "db_password" {
+  name = "db_password"
+}
+
+resource "aws_secretsmanager_secret_version" "db_password" {
+  secret_id                = aws_secretsmanager_secret.db_password.id
+  secret_string_wo         = ephemeral.random_password.db_password.result
+  secret_string_wo_version = 1
+}
+
+ephemeral "aws_secretsmanager_secret_version" "db_password" {
+  secret_id = aws_secretsmanager_secret_version.db_password.secret_id
+}
+
+resource "aws_db_instance" "example" {
+  instance_class      = "db.t3.micro"
+  allocated_storage   = "5"
+  engine              = "postgres"
+  username            = "example"
+  skip_final_snapshot = true
+  password_wo         = ephemeral.aws_secretsmanager_secret_version.db_password.secret_string
+  password_wo_version = aws_secretsmanager_secret_version.db_password.secret_string_wo_version
+}
+
+            </code>
+          </pre>
+          <a style="color: violet" href="https://developer.hashicorp.com/terraform/language/resources/ephemeral" >Ephemeral Resources</a>
+        </section>
+
+        <section>
+          <img
+          src="https://icon.icepanel.io/Technology/svg/HashiCorp-Terraform.svg"
+          alt="Terraform Logo" style="height: 200px; margin: 0 auto auto;
+          background: transparent;" ">
+          <h1>Example Code</h1>
+        </section>
+
+        <section>
+          <h3>Conditions, validations and control structures</h3>
+
+          <p>
+            Terraform supports conditions, validations, and control structures
+            to enhance configuration flexibility.
+          </p>
+          <ul style="font-size: 20px">
+            <li class="fragment fade-in">
+              <b>if</b> statements for conditional resource inclusion.
+            </li>
+            <li class="fragment fade-in">
+              Control structures like <b>for_each</b> and <b>count</b> for
+              dynamic resource creation.
+            </li>
+            <li class="fragment fade-in">
+              Variable validations to ensure correct values.
+            </li>
+          </ul>
+
+          <pre class="fragment fade-in">
+            <code class="language-python" data-trim data-line-numbers>
+variable "instance_count" {
+  description = "Number of instances to create"
+  type        = number
+  default     = 1
+  validation {
+    condition     = var.instance_count > 0
+    error_message = "Instance count must be greater than 0"
+  }
+} </code></pre>
+        </section>
+
+        <section>
+          <h3>Terraform Functions</h3>
+
+          <p>
+            Terraform provides built-in functions for various operations,
+            including string manipulation, arithmetic, and data transformation,
+            e.g.:
+          </p>
+          <ul style="font-size: 20px">
+            <li class="fragment fade-in">
+              <b>concat</b> – Concatenates two or more strings.
+            </li>
+            <li class="fragment fade-in">
+              <b>length</b> – Returns the length of a string or list.
+            </li>
+            <li class="fragment fade-in">
+              <b>lookup</b> – Retrieves a value from a map by key.
+            </li>
+            <li class="fragment fade-in">
+              <b>join</b> – Joins elements of a list into a single string.
+            </li>
+            <li class="fragment fade-in">
+              <b>split</b> – Splits a string into a list based on a delimiter.
+            </li>
+          </ul>
+          <pre class="fragment fade-in">
+            <code class="language-python" data-line-numbers="7" data-trim>
+          resource "aws_sns_topic" "example" {
+            # (other resource arguments...)
+            # Split the system_id variable by '-' 
+            # and use the first part as the topic name
+            tags = {
+              Name        = "example-topic"
+              SystemIDBase = split(-, var.system_id)[0]
+            }
+          }
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <h2>Dependencies</h2>
+          <p>
+            Terraform automatically manages dependencies between resources based
+            on their references ("implicit").
+          </p>
+          <pre class="fragment fade-in">
+            <code class="language-python" data-trim data-line-numbers="1-8|11">
+              data "aws_ami" "ubuntu" {
+                  most_recent = true
+                  owners      = ["099720109477"]
+                  filter {
+                    name   = "name"
+                    values = ["ubuntu/images/hvm-ssd/ubuntu-*"]
+                  }
+                }
+
+              resource "aws_instance" "example" {
+                  ami           = data.aws_ami.ubuntu.id
+                  # (other resource arguments...)
+              }
+            </code>
+          </pre>
+        </section>
+        <section>
+          <h2>Dependencies</h2>
+          <p>
+            You can also explicitly define dependencies using the
+            <b>depends_on</b>
+            argument to ensure correct resource creation order.
+          </p>
+          <pre class="fragment fade-in">
+            <code class="language-python" data-trim data-line-numbers="4">
+        resource "aws_instance" "example" {
+          ami           = "ami-0c55b159cbfafe1f0"
+          instance_type = "t2.micro"
+          depends_on   = [aws_vpc.example]
+        }
+            </code>
+          </pre>
+          <p class="fragment fade-in">
+            This ensures that the <b>aws_instance.example</b> resource is
+            created only after the <b>aws_vpc.example</b> resource is ready
+            ("explicit").
+          </p>
+        </section>
+
+        <section>
+          <img
+          src="https://icon.icepanel.io/Technology/svg/HashiCorp-Terraform.svg"
+          alt="Terraform Logo" style="height: 200px; margin: 0 auto auto;
+          background: transparent;" ">
+          <h1>Example Code</h1>
+        </section>
+
+        <section>
+          <h2>What are modules?</h2>
+          <div style="font-size: 1.5rem">
+            <p>
+              A <b>module</b> is a container for multiple resources that are
+              used together. It allows you to group related resources and reuse
+              them across different configurations.
+            </p>
+            <p>
+              Modules can be local (defined in the same configuration) or remote
+              (shared via a registry or version control).
+            </p>
+          </div>
+          <pre class="fragment fade-in">
+            <code class="language-python" data-trim data-line-numbers>
+module "mymodule" {
+  source = "./modules/mymodule"
+  # (other module arguments...)
+}
+
+module "vpc" {
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "6.0.1"
+  # (other module arguments...)
+}
+            </code>
+          </pre>
+        </section>
+        <section>
+          <h2>What are modules?</h2>
+          <p class="fragment fade-in">
+            Modules help organize code, promote reuse, and simplify complex
+            configurations.
+          </p>
+          <div class="fragment fade-in" style="text-align: center">
+            <a
+              href="https://registry.terraform.io"
+              target="_blank"
+              style="display: inline-block; text-decoration: none"
+            >
+              <img
+                src="assets/tf-registry.png"
+                alt="Terraform Registry Screenshot"
+                style="
+                  max-width: 500px;
+                  width: 100%;
+                  border-radius: 8px;
+                  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+                  margin-bottom: 0.5em;
+                "
+              />
+              <div style="font-size: 1.2em; color: #7b42f6; font-weight: bold">
+                Visit Terraform Registry
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <section>
+          <img
+          src="https://icon.icepanel.io/Technology/svg/HashiCorp-Terraform.svg"
+          alt="Terraform Logo" style="height: 200px; margin: 0 auto auto;
+          background: transparent;" ">
+          <h1>Example Code</h1>
+        </section>
+
+        <section>
+          <div style="margin-top: 2em">
+            <img
+              src="https://icon.icepanel.io/Technology/svg/HashiCorp-Terraform.svg"
+              alt="Terraform Logo"
+              style="height: 120px; margin-bottom: 1em; background: transparent"
+            />
+            <p style="font-size: 1.5em; color: #fff">
+              Thank you for your attention!
+            </p>
+          </div>
+          <p style="font-size: 1.2em; color: #eee; margin-top: 1.5em">
+            If you have any questions or need further clarification, feel free
+            to ask.
+          </p>
+        </section>
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize(
+        {
+          hash: true,
+
+          // Learn about plugins: https://revealjs.com/plugins/
+          plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+          dependencies: [
+            {
+              src: "plugin/external/external.js",
+              condition: function () {
+                return !!document.querySelector(
+                  "[data-external],[data-external-replace]"
+                );
+              },
+            }
+          ]
+        }
+      );
+    </script>
+  </body>
+</html>

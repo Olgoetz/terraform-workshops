@@ -1,0 +1,34 @@
+---
+exclude: |
+  (?x)^(
+      .*\{\{.*\}\}.*|     # Exclude any files with cookiecutter variables
+      docs/site/.*|       # Exclude mkdocs compiled files
+      \.history/.*|       # Exclude history files
+      .*cache.*/.*|       # Exclude cache directories
+      .*venv.*/.*|        # Exclude virtual environment directories
+  )$
+fail_fast: true
+repos:
+  # ---------------------------- 💻 Terraform --------------------------- #
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.99.5 # Get the latest from: https://github.com/antonbabenko/pre-commit-terraform/releases
+    hooks:
+
+      - id: terraform_validate
+        name: "💻 terraform/⚙️  Validate Terraform configuration files"
+        args:
+          - --tf-init-args=-backend=false
+          - --tf-init-args=-upgrade
+          - --hook-config=--retry-once-with-cleanup=true
+
+      - id: terraform_fmt
+        name: "💻 terraform/📝 format Terraform configuration files"
+
+      - id: terraform_tflint
+        name: "💻 terraform/📝 lint Terraform configuration files"
+        args:
+          - --args=--force
+
+      - id: terraform_docs
+        name: "💻 terraform/📝 generate Terraform docs"
+

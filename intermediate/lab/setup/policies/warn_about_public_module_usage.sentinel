@@ -1,0 +1,49 @@
+# This policy warns about the usage of public modules.
+
+
+// ------------------------------------------------------------------
+// Name:        warn-about-public-module-usage.sentinel
+// Category:    Modules
+// Provider:    N/A
+// Resource:    N/A
+// Check:       Warn about module source
+// ------------------------------------------------------------------
+// Warn if module calls do not come from a specific source
+// ------------------------------------------------------------------
+
+
+import "strings"
+import "tfconfig/v2" as tfconfig
+
+
+# Activate verbose mode for debugging
+verbose = false
+
+allModuleCalls = tfconfig.module_calls
+
+if verbose {
+	print(allModuleCalls)
+}
+
+# Get all violations
+violations = filter allModuleCalls as address, rc {
+	!strings.has_prefix(rc.source, "tfe.axa-cloud.com") and
+	!strings.has_prefix(rc.source, "localterraform.com")
+}
+
+# If we have violations print a message to the console
+if length(violations) > 0 {
+	print("WARNING: You are calling a module from a PUBLIC address.\n")
+	print("Have look at https://pages.github.axa.com/mcm-orchestration/TFE-Documentation/operational-excellence/modules/.")
+	print("We synced a some from the public TFE registry.")
+	print("If you require more modules, please create a support request via the link at the bottom.\n")
+
+	for violations as address, rc {
+	print(address, "has source", rc.source)
+}
+}
+
+// All modules sources must be from "tfe.axa-cloud.com"
+main = rule {
+	length(violations) is 0
+}

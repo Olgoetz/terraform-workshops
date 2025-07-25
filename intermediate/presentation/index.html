@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <title>Terraform - Advanced</title>
+
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/black.css" />
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section data-external="slides/001_intro.html"></section>
+        <section data-external="slides/002_agenda.html"></section>
+        <section data-external="slides/003_what_is_tfe.html"></section>
+        <section data-external="slides/004_comparing_tfe_tfc.html"></section>
+        <section data-external="slides/005_iam.html"></section>
+        <section data-external="slides/998_demo.html"></section>
+        <section data-external="slides/006_pac.html"></section>
+        <section data-external="slides/007_workflows.html"></section>
+        <section data-external="slides/998_demo.html"></section>
+        <section data-external="slides/008_providers_and_modules.html"></section>
+        <section data-external="slides/998_demo.html"></section>
+         <section data-external="slides/997_links.html"></section>
+         <section data-external="slides/999_outro.html"></section>
+   
+      
+
+ 
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script
+      src="https://kit.fontawesome.com/86783b7779.js"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+        dependencies: [
+          {
+            src: "plugin/external/external.js",
+            condition: function () {
+              return !!document.querySelector(
+                "[data-external],[data-external-replace]"
+              );
+            },
+          },
+        ],
+      });
+    </script>
+  </body>
+</html>

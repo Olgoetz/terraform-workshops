@@ -1,0 +1,175 @@
+        <section>
+          <h2>Workflows</h2>
+          <p>
+            TFE supports different workflows to manage infrastructure changes
+            and deployments:
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th
+                  style="
+                    font-size: 1em;
+                    vertical-align: middle;
+                    text-align: center;
+                  "
+                >
+                  Workflow
+                </th>
+                <th
+                  style="
+                    font-size: 1em;
+                    vertical-align: middle;
+                    text-align: center;
+                  "
+                >
+                  Description
+                </th>
+                <th
+                  style="
+                    font-size: 1em;
+                    vertical-align: middle;
+                    text-align: center;
+                  "
+                >
+                  Benefits
+                </th>
+                <th
+                  style="
+                    font-size: 1em;
+                    vertical-align: middle;
+                    text-align: center;
+                  "
+                >
+                  Drawbacks
+                </th>
+              </tr>
+            </thead>
+            <tbody style="font-size: medium">
+              <tr
+                class="fragment fade-in"
+                style="vertical-align: middle; text-align: center"
+              >
+                <td style="vertical-align: middle; text-align: center">
+                  <b>Version Control Workflow</b>
+                </td>
+                <td style="vertical-align: middle; text-align: center">
+                  Integrates with version control systems (e.g., Git) to trigger
+                  runs based on code changes.
+                </td>
+                <td style="vertical-align: middle; text-align: center">
+                  <ul
+                    style="
+                      margin: 0 0 0 1em;
+                      padding-left: 1em;
+                      display: inline-block;
+                      text-align: left;
+                      vertical-align: middle;
+                    "
+                  >
+                    <li>Automated</li>
+                    <li>Auditable</li>
+                    <li>Supports collaboration</li>
+                    <li>CI/CD best practices</li>
+                  </ul>
+                </td>
+                <td style="vertical-align: middle; text-align: center">
+                  <ul
+                    style="
+                      margin: 0 0 0 1em;
+                      padding-left: 1em;
+                      display: inline-block;
+                      text-align: left;
+                      vertical-align: middle;
+                    "
+                  >
+                    <li>Requires VCS integration setup</li>
+                    <li>Less flexibility for ad-hoc changes</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr
+                class="fragment fade-in"
+                style="vertical-align: middle; text-align: center"
+              >
+                <td style="vertical-align: middle; text-align: center">
+                  <b>CLI Workflow</b>
+                </td>
+                <td style="vertical-align: middle; text-align: center">
+                  Allows users to manually trigger runs and apply changes via
+                  cli.
+                </td>
+                <td style="vertical-align: middle; text-align: center">
+                  <ul
+                    style="
+                      margin: 0 0 0 1em;
+                      padding-left: 1em;
+                      display: inline-block;
+                      text-align: left;
+                      vertical-align: middle;
+                    "
+                  >
+                    <li>Simple to use</li>
+                    <li>Flexible for quick or one-off changes</li>
+                  </ul>
+                </td>
+                <td style="vertical-align: middle; text-align: left">
+                  <ul
+                    style="
+                      margin: 0 0 0 1em;
+                      padding-left: 1em;
+                      display: inline-block;
+                      vertical-align: middle;
+                    "
+                  >
+                    <li>Prone to human error</li>
+                    <li>Versed working with a CLI</li>
+                    <li>Requires CI/CD integration</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr
+                class="fragment fade-in"
+                style="vertical-align: middle; text-align: center"
+              >
+                <td style="vertical-align: middle; text-align: center">
+                  <b>API Workflow</b>
+                </td>
+                <td style="vertical-align: middle; text-align: center">
+                  Enables programmatic control over runs and deployments through
+                  the TFE API.
+                </td>
+                <td style="vertical-align: middle; text-align: center">
+                  <ul
+                    style="
+                      margin: 0 0 0 1em;
+                      padding-left: 1em;
+                      display: inline-block;
+                      text-align: left;
+                      vertical-align: middle;
+                    "
+                  >
+                    <li>Highly flexible</li>
+                    <li>Enables automation</li>
+                    <li>Integration with other systems</li>
+                  </ul>
+                </td>
+                <td style="vertical-align: middle; text-align: center">
+                  <ul
+                    style="
+                      margin: 0 0 0 1em;
+                      padding-left: 1em;
+                      display: inline-block;
+                      text-align: left;
+                      vertical-align: middle;
+                    "
+                  >
+                    <li>Requires API knowledge</li>
+                    <li>Custom tooling needed</li>
+                    <li>Can be complex to manage securely</li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>

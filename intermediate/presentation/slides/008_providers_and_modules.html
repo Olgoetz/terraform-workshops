@@ -1,0 +1,38 @@
+<section>
+  <h2>Providers and Modules</h2>
+  <p>
+    Terraform uses providers to interact with cloud providers, SaaS providers, and other APIs. Modules are containers for multiple resources that are used together.
+  </p>
+</section>
+
+<section>
+  <h2>Providers</h2>
+  <p>
+    There exists a curated list of <a href="https://github.axa.com/mcm-orchestration/TFE-v2-Custom-Agent-Image/blob/nonprod/container-files/hooks/allowed_providers.txt" target="_blank">allowed providers.</a>
+    MCM team only supports official HashiCorp providers. 
+  </p>
+  <pre class="fragment fade-in"><code data-trim data-line-numbers>
+terraform {
+  required_providers {
+    aws = {
+      # 'hashicorp' indicates that it is officially supported by HashiCorp
+      source = "hashicorp/aws"
+      version = "6.4.0"
+    }
+  }
+}
+  </code></pre>
+</section>
+
+<section>
+  <h2>Modules</h2>
+  <p style="font-size: large">
+   Internally developped modules can be consumed without a doubt from the TFE registry.
+  </p>
+   <p style="font-size: large">
+   Well-known public ones are synced as well and can be recognized with <b>-synced</b> suffix.
+  </p>
+  <img src="../assets/modules.png" class="r-stretch" />
+   <p class="fragment fade-in" style="font-size: large; color: red">Attention: There is no active prevention of consuming public modules, only an advisory sentinel policy kicks in. You are accountable and responsible for the consequences.</p>
+
+</section>

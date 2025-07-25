@@ -1,0 +1,23 @@
+import "tfplan/v2" as tfplan
+
+// Sentinel filter expression used to filter out all aws_s3_bucket resources 
+// that will change once the Terraform plan has been applied.
+aws_db_instances = filter tfplan.resource_changes as _, resource_changes {
+    resource_changes.type is "aws_db_instance" and
+        resource_changes.mode is "managed" and
+        (resource_changes.change.actions contains "create" or
+            resource_changes.change.actions is ["update"])
+}
+
+
+aws_db_instances_are_micro = rule {
+    all aws_db_instances as _, aws_db_instance {
+        aws_db_instance.change.after.instance_class is "db.t4g.micro"
+    }
+}
+
+// Sentinel rule used to evaluate if db_instances are set to "db.t4g.micro".
+// You MUST set the "instance_class" to "db.t4g.micro" in your Terraform configuration.
+main = rule {
+    aws_db_instances_are_micro
+}
