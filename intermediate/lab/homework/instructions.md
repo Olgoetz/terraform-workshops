@@ -296,7 +296,7 @@ ephemeral "aws_secretsmanager_secret_version" "db_password" {
 2. Create a DB subnet group using the subnets from the data source
 3. Create an RDS PostgreSQL instance with:
    - Appropriate identifier using your prefix
-   - Instance class: db.t4g.micro
+   - Instance class: Start with db.t3.medium. If does not work, the UI gives you hints.
    - 5GB of allocated storage
    - Username: "example"
    - Password from the secret created in Exercise 10
