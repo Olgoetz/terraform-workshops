@@ -55,7 +55,7 @@ resource "tfe_team_access" "training" {
 }
 
 resource "tfe_organization_membership" "training" {
-  for_each     = toset(var.trainees)
+  for_each     = toset([for t in var.trainees : t if t != "oliver.goetz@axa.com"])
   organization = tfe_organization.training.name
   email        = each.key
 }

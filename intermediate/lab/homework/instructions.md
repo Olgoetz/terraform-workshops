@@ -62,6 +62,36 @@ Consult the <a href="https://registry.terraform.io/providers/hashicorp/aws/lates
 
 **Remember to replace placeholder values (like "yourFirstName-yourLastName") with your own information where necessary. Good luck with the workshop!**
 
+<details>
+<summary>Have a look at these tips!</summary>
+
+```bash
+# Frequently run the python script to verify your setup
+$ python worksho_verifier.py
+
+# Output the whole data source or resource for troubleshotting
+resource "aws_instance" "this" {
+  # (... my config)
+}
+
+output "full_instance" {
+ value = aws_instance.this
+}
+```
+
+</details>
+
+
+## Exercise 0: Create file structure
+
+**Objective**: Create a basic file structure (do not add additional files!)
+
+- `main.tf`: Contains resources, data sources, ephemeral resources, provider config and terraform backend
+- `variables.tf`: Contains variables
+- `outputs.tf`: Contains outputs
+- `versions.tf`: Contains provider version constraint
+- `terraform.tfvars`: Containing some default values
+
 ## Exercise 1: Terraform Configuration and Version Requirements
 
 **Objective**: Set up Terraform with proper version constraints and backend configuration.
@@ -94,7 +124,10 @@ terraform {
 }
 ```
 
+3. Create a TFE token via https://tfe.axa-cloud.com/app/settings/tokens and export it as environment variable `TFE_TOKEN=yourToken` (or simply run `terraform login tfe.axa-cloud.com`)
+
 3. Run `terraform init`
+
 
 ## Exercise 2: Provider Configuration with Default Tags
 
@@ -256,6 +289,7 @@ module "s3_bucket" {
 ```hcl
 resource "aws_s3_object" "s3_object" {
   # To be set
+  also allow source
 }
 ```
 
@@ -288,6 +322,8 @@ ephemeral "aws_secretsmanager_secret_version" "db_password" {
 
 **Challenge**: Understand how ephemeral resources differ from regular resources in terms of state management.
 
+**Hint**: Consult https://developer.hashicorp.com/terraform/language/resources/ephemeral
+
 ## Exercise 11: Database Setup with Security Groups
 
 **Objective**: Set up a PostgreSQL database with proper security.
@@ -296,7 +332,7 @@ ephemeral "aws_secretsmanager_secret_version" "db_password" {
 2. Create a DB subnet group using the subnets from the data source
 3. Create an RDS PostgreSQL instance with:
    - Appropriate identifier using your prefix
-   - Instance class: Start with db.t3.medium. If does not work, the UI gives you hints.
+   - Instance class: db.t4g.micro
    - 5GB of allocated storage
    - Username: "example"
    - Password from the secret created in Exercise 10

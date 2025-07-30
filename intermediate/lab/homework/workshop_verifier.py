@@ -58,6 +58,23 @@ class TerraformVerifier:
             return result.stdout, result.stderr, result.returncode
         except Exception as e:
             return "", str(e), 1
+        
+    def check_file_structure(self):
+        print(f"\n{INFO} Checking Exercise 0: File structure...")
+        print("-------------------------------------------------------------------------------------")
+        main_exists = Path(self.base_dir / "main.tf").exists()
+        variables_exists = Path(self.base_dir / "variables.tf").exists()
+        outputs_exists = Path(self.base_dir / "outputs.tf").exists()
+        versions_exists = Path(self.base_dir / "versions.tf").exists()
+        tfvars_exists = Path(self.base_dir / "terraform.tfvars").exists()
+        
+        print(f"{SUCCESS if main_exists else FAILURE} main.tf found")
+        print(f"{SUCCESS if variables_exists else FAILURE} variables.tf found")
+        print(f"{SUCCESS if outputs_exists else FAILURE} outputs.tf found")
+        print(f"{SUCCESS if versions_exists else FAILURE} versions.tf found")
+        print(f"{SUCCESS if tfvars_exists else FAILURE} terraform.tfvars found")
+        
+        return main_exists and variables_exists and outputs_exists and versions_exists and tfvars_exists
     
     def check_terraform_cloud_config(self):
         """Check Exercise 1: Terraform Cloud Configuration."""
@@ -212,7 +229,7 @@ class TerraformVerifier:
         print(f"{SUCCESS if s3_object_found else FAILURE} S3 object resource found")
         print(f"{SUCCESS if correct_bucket else FAILURE} S3 object uses bucket from module")
         print(f"{SUCCESS if correct_key else FAILURE} S3 object key set to 's3_object.txt'")
-        print(f"{SUCCESS if file_content_used else FAILURE} S3 object uses file() function for content")
+        print(f"{SUCCESS if file_content_used else FAILURE} S3 object uses file() function for content (use content attribute, not source)")
         print(f"{SUCCESS if file_exists else FAILURE} s3_object.txt file exists")
         
         return s3_object_found and correct_bucket and correct_key and file_content_used and file_exists
@@ -287,23 +304,10 @@ class TerraformVerifier:
             print(stderr)
         
         
-        # File structure check
-        print(f"\n{INFO} Checking file structure...")
-        print("-------------------------------------------------------------------------------------")
-        main_exists = Path(self.base_dir / "main.tf").exists()
-        variables_exists = Path(self.base_dir / "variables.tf").exists()
-        outputs_exists = Path(self.base_dir / "outputs.tf").exists()
-        versions_exists = Path(self.base_dir / "versions.tf").exists()
-        tfvars_exists = Path(self.base_dir / "terraform.tfvars").exists()
-        
-        print(f"{SUCCESS if main_exists else FAILURE} main.tf found")
-        print(f"{SUCCESS if variables_exists else FAILURE} variables.tf found")
-        print(f"{SUCCESS if outputs_exists else FAILURE} outputs.tf found")
-        print(f"{SUCCESS if versions_exists else FAILURE} versions.tf found")
-        print(f"{SUCCESS if tfvars_exists else FAILURE} terraform.tfvars found")
-        
+
         # Run all checks
         results = {
+            "Exercise 0: File structure": self.check_file_structure(),
             "Exercise 1: Terraform Cloud Configuration": self.check_terraform_cloud_config(),
             "Exercise 2: Provider Configuration": self.check_provider_config(),
             "Exercise 3: Variables with Validation": self.check_variables(),

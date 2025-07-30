@@ -61,7 +61,7 @@ resource "aws_iam_policy" "tfc_policy" {
        "arn:aws:s3:::tfe-training*/*",
        "arn:aws:ec2:*:*:*tfe-training*",
        "arn:aws:ec2:*:*:vpc/*",
-       "arn:aws:ec2:*:*:security-group/*",
+       "arn:aws:ec2:*:*:security-group*/*",
        "arn:aws:rds:*:*:*tfe-training*",
        "arn:aws:sns:*:*:tfe-training*",
        "arn:aws:sqs:*:*:tfe-training*",

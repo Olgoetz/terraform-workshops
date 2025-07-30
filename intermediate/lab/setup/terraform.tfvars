@@ -1,12 +1,13 @@
 trainees = [
   "clemens.selbach@axa.de",
-  # "tom.bosch@axa.de",
-  # "natalie.fritzen@axa.de",
-  # "andre.goetz@axa.de",
-  # "sebastian.schwendner@axa.de",
-  # "marco.lennartz@axa.de",
-  # "werner.wahl@axa.de",
-  # "sven.neufeind@axa.de"
+  "tom.bosch@axa.de",
+  "natalie.fritzen@axa.de",
+  "andre.goetz@axa.de",
+  "sebastian.schwendner@axa.de",
+  "marco.lennartz@axa.de",
+  "werner.wahl@axa.de",
+  "sven.neufeind@axa.de",
+  "oliver.goetz@axa.com"
 
 ]
 
