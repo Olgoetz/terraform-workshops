@@ -19,10 +19,22 @@ This workshop will guide you through several intermediate-level Terraform concep
 Each exercise builds upon the previous one. Complete them in order for the best learning experience.
 I recommend to do the exercises with the CLI driven workflow as it is faster. However, at the end of this file, I give a few hints for the VCS driven worklow.
 
+## Tips
+
 You can also find a `workshop_verifier.py` script. If you have python installed, you can use the script to quickly check how you are proceeding.
 The output is someting like:
 
 At any given time, you can execute `terraform fmt .` and `terraform plan`, but also `terraform apply` to verify your configuration and to deploy the resources.
+
+Outputting the whole data source or resources may help for debugging:
+```hcl
+resource "aws_instance" "this" {
+  # (... my config)
+}
+output "full_instance" {
+ value = aws_instance.this
+}
+```
 
 Consult the <a href="https://registry.terraform.io/providers/hashicorp/aws/latest/docs">AWS provider</a> documentation for the implemenation and google :blush:
 
@@ -62,24 +74,6 @@ Consult the <a href="https://registry.terraform.io/providers/hashicorp/aws/lates
 
 **Remember to replace placeholder values (like "yourFirstName-yourLastName") with your own information where necessary. Good luck with the workshop!**
 
-<details>
-<summary>Have a look at these tips!</summary>
-
-```bash
-# Frequently run the python script to verify your setup
-$ python worksho_verifier.py
-
-# Output the whole data source or resource for troubleshotting
-resource "aws_instance" "this" {
-  # (... my config)
-}
-
-output "full_instance" {
- value = aws_instance.this
-}
-```
-
-</details>
 
 
 ## Exercise 0: Create file structure
